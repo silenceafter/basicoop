@@ -35,7 +35,7 @@ Console.ReadKey();
 
 static void Show(Building building) 
 {
-    Console.WriteLine($"Номер здания = { building.Number }");
+    Console.WriteLine($"Номер здания = { building.Id }");
     Console.WriteLine($"Кол-во этажей всего = { building.Floor }");
     Console.WriteLine($"Кол-во жилых этажей = { building.FloorLiving }");
     Console.WriteLine($"Кол-во подземных этажей = { building.FloorUnderground }");
@@ -55,8 +55,8 @@ static void ShowSample(Building building, int floor)
 public class Building {
     public Building(uint floor, uint floorUnderground, uint apartment, uint entrance) {
         //генерируем номер здания
-        IncreaseUniqueNumber();
-        _number = Number;
+        IncreaseId();
+        _id = Id;
         //        
         _floor = floor;
         _floorLiving = floor - floorUnderground;
@@ -66,7 +66,7 @@ public class Building {
         _height = BuildingHeight();
     }
 
-    private static uint _number = 0;//уникальный номер здания
+    private static uint _id = 0;//уникальный номер здания
     private double _height;//высота здания
     private uint _floor;//кол-во этажей
     private uint _floorLiving;//кол-во жилых этажей
@@ -75,9 +75,9 @@ public class Building {
     private uint _entrance;//кол-во подъездов    
     private static double _heightOfFloor = 3.0;//высота одного этажа
 
-    public uint Number {
+    public uint Id {
         //номер здания
-        get => _number;
+        get => _id;
     }
 
     public double Height
@@ -116,16 +116,16 @@ public class Building {
         get => _entrance;
     }
 
-    public static double HeightOfFloor 
+    public static double HeightOfFloor
     {
         //высота одного этажа
         get => _heightOfFloor;
     }    
 
-    public static void IncreaseUniqueNumber() 
+    public static void IncreaseId() 
     {
         //получить уникальный номер здания
-        _number = ++_number;
+        _id = ++_id;
     }
 
     public double FloorHeight(int floorNumber) 
