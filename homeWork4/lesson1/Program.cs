@@ -56,7 +56,7 @@ public class Building {
     public Building(uint floor, uint floorUnderground, uint apartment, uint entrance) {
         //генерируем номер здания
         IncreaseId();
-        _id = Id;
+        _id = _cnt;
         //        
         _floor = floor;
         _floorLiving = floor - floorUnderground;
@@ -66,7 +66,8 @@ public class Building {
         _height = BuildingHeight();
     }
 
-    private static uint _id = 0;//уникальный номер здания
+    private static uint _cnt = 0;//счетчик номеров здания
+    private uint _id;////уникальный номер здания
     private double _height;//высота здания
     private uint _floor;//кол-во этажей
     private uint _floorLiving;//кол-во жилых этажей
@@ -125,7 +126,7 @@ public class Building {
     public static void IncreaseId() 
     {
         //получить уникальный номер здания
-        _id = ++_id;
+        _cnt = ++_cnt;
     }
 
     public double FloorHeight(int floorNumber) 
