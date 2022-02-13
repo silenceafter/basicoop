@@ -1,7 +1,12 @@
 ﻿//задание 2
-Console.WriteLine($"пример -> { GetReverseString("пример") }");
-Console.WriteLine($"Александр -> { GetReverseString("Александр") }");
-Console.WriteLine($"программисты программируют -> { GetReverseString("программисты программируют") }");
+char[] array1 = { 'п', 'р', 'и', 'м', 'е', 'р' };
+char[] array2 = { 'А', 'л', 'е', 'к', 'с', 'а', 'н', 'д', 'р' };
+char[] array3 = { 'п', 'р', 'о', 'г', 'р', 'а', 'м', 'м', 'и', 'с', 'т', 'ы', ' ',
+'п', 'р', 'о', 'г', 'р', 'а', 'м', 'м', 'и', 'р', 'у', 'ю', 'т' };
+//
+Console.WriteLine($"пример -> { GetReverseString(array1) }");
+Console.WriteLine($"Александр -> { GetReverseString(array2) }");
+Console.WriteLine($"программисты программируют -> { GetReverseString(array3) }");
 Console.ReadKey();
 
 static void ShowAccount(BankAccount account)
@@ -15,40 +20,44 @@ static void ShowAccount(BankAccount account)
     return;
 }
 
-static string GetReverseString(string str) 
+static void ShowTransfer(BankAccount account1, BankAccount account2, double amount)
 {
-    //вернуть обратную строку
-    string reverse = "";
-    for(int i = str.Length - 1; i >= 0; i--)
+    //вывод на экран информации о переводе
+    Console.WriteLine($"Аккаунт \"{ account2.AccountNumber }\" -> \"{ account1.AccountNumber }\": { amount }");
+    Console.WriteLine($"Аккаунт \"{ account2.AccountNumber }\": { Math.Round(account2.Balance, 2) }");
+    Console.WriteLine($"Аккаунт \"{ account1.AccountNumber }\": { Math.Round(account1.Balance, 2) }\n");
+}
+
+static string? GetReverseString(char[] array) 
+{
+    //вернуть обратную строку (тип строка)
+    char tmp;
+    for(int i = 0, j = array.Length - 1; i < array.Length / 2; i++, j--)
     {
-        reverse += str[i];
+        tmp = array[i];
+        array[i] = array[j];
+        array[j] = tmp;
     }
-    return reverse;
+    return new string(array);
 }
 public class BankAccount
 {
     public BankAccount()
     {
-        AccountNumber = 0;//"";
+        _counter += 1;//AccountNumber = 0;//"";
+        _accountNumber = _counter;
     }
 
     //accountNumber
-    private uint _accountNumber = 0;//"00000";
+    private uint _accountNumber;// = 0;
     public uint AccountNumber
     {
-        get
-        {
-            return _accountNumber;
-        }
-
-        set
-        {
-            _accountNumber = ++_counter;//_accountNumber = String.Format("{0:00000}", ++_counter);
-        }
+        get => _accountNumber;
+        set =>_accountNumber = value;//++_counter;//_accountNumber = String.Format("{0:00000}", ++_counter);
     }
 
     //accountType
-    public enum AccountType { current, estimated, credit, deposit };
+    public enum AccountType { Current, Estimated, Credit, Deposit };
     private AccountType _accountType;
     public AccountType CurrentAccountType
     {
@@ -74,58 +83,42 @@ public class BankAccount
     public bool GetMoney(double value)
     {
         //снятие со счета
-        bool done = false;
         double balance = _balance;
         //
         if (balance - value >= 0)
         {
             //деньги можно снять, изменяем баланс
             _balance -= value;
-            done = true;
+            return true;
         }
-        else
-        {
-            //снять нельзя
-            done = false;
-        }
-        return done;
+        return false;
     }
 
     public bool SetMoney(double value)
     {
         //положить на счет
-        bool done = false;
-        //
         if (value > 0)
         {
             _balance += value;
-            done = true;
+            return true;
         }
-        return done;
+        return false;
     }
 
     public bool TransferMoney(BankAccount bankAccount, double amount)//double value
     {
         //перевести деньги на счет,
         //bankAccount - объект, у которого снимаются деньги
-        bool done = false;
-        //
         if (bankAccount != null)
         {
-
             if (amount > 0 && bankAccount.Balance - amount >= 0)
             {
                 //на счете есть нужная сумма
                 bankAccount.Balance -= amount;
-                this.SetMoney(amount);
-                done = true;                
+                this.SetMoney(amount);              
             }
-            
-            //вывод на экран
-            Console.WriteLine($"Аккаунт \"{ bankAccount.AccountNumber }\" -> \"{ this.AccountNumber }\": { amount }");
-            Console.WriteLine($"Аккаунт \"{ bankAccount.AccountNumber }\": { Math.Round(bankAccount.Balance, 2) }");
-            Console.WriteLine($"Аккаунт \"{ this.AccountNumber }\": { Math.Round(this.Balance, 2) }\n");
+            return true;
         }
-        return done;
+        return false;
     }
 }

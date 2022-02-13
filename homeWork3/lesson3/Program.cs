@@ -7,13 +7,15 @@ if (textFile != null)
     textFile.Read();
     Console.WriteLine($"Файл { textFile.InputFile } создан");
     Console.WriteLine("Чтение файла");
+    //
     textFile.Search();
     Console.WriteLine("Поиск e-mail адресов в тексте");
+    //
     textFile.Write();
     Console.WriteLine($"Запись файла { textFile.EmailFile }");
     Console.WriteLine("Готово");
 }
-Console.ReadKey();
+Console.ReadLine();
 
 public class TextFile
 {
@@ -33,21 +35,18 @@ public class TextFile
 
     public void Read()
     {  
-        using var fstream = File.OpenRead(InputFile);
-        if (fstream != null)
+        using (StreamReader sr = new StreamReader(new BufferedStream(File.OpenRead(InputFile), 1024 * 1024), System.Text.Encoding.Default))
         {
-            byte[] array = new byte[fstream.Length];//преобразуем строку в байты            
-            fstream.Read(array, 0, array.Length);//считываем данные            
-            string text = System.Text.Encoding.Default.GetString(array);//декодируем байты в строку
-                                                                        //
-            string[] rows = text.Split('&');
-            for (var i = 0; i < rows.Length; i++)
+            //выделим буфер в 1 Мб
+            string? line;
+            while ((line = sr.ReadLine()) != null)
             {
-                string s = rows[i];
-                FileByRows.Add(rows[i]);
+                string[] rows = line.Split('&');
+                foreach(var row in rows) {
+                    FileByRows.Add(row);
+                }                
             }
-        }
-        //ВОПРОС: Если при чтении возникнет ошибка, как лучше поступить с обработкой ошибки, учитывая, что у нас есть using
+        }                   
     }
 
     public void Search()
@@ -91,21 +90,17 @@ public class TextFile
             var s = NewFileByRows[i];
             if (s.Contains('@'))
             {
-                WriteEmail(ref s);
+                WriteEmail(s);
             }                
         }
     }
 
-    public void WriteEmail(ref string s)
+    public void WriteEmail(string s)
     {
         // запись в файл
-        using var fstream = new FileStream(EmailFile, FileMode.Append);
-        if (fstream != null)
+        using (StreamWriter sw = new StreamWriter(EmailFile, true, System.Text.Encoding.Default))
         {
-            // преобразуем строку в байты
-            byte[] array = System.Text.Encoding.Default.GetBytes($"{ s }\n");
-            // запись массива байтов в файл
-            fstream.Write(array, 0, array.Length);
-        }
+           sw.WriteLine(s);
+        }        
     }
 }
