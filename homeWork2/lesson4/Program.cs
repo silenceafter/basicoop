@@ -3,9 +3,9 @@ var accountList = new List<BankAccount>();
 for (int i = 0; i < 3; i++)
 {
     var account = new BankAccount();
-    account.AccountNumber = "0000";
+    account.AccountNumber = BankAccount.IncrementAccountNumber();//"0000";
     account.Balance = 5000.23;
-    account.CurrentAccountType = BankAccount.AccountType.кредитный;
+    account.CurrentAccountType = BankAccount.AccountType.Credit;
     accountList.Add(account);
 }
 
@@ -20,22 +20,15 @@ Console.ReadKey();
 public class BankAccount
 {
     //accountNumber
-    private string _accountNumber = "00000";
-    public string AccountNumber
+    private uint _accountNumber;// = "00000";
+    public uint AccountNumber
     {
-        get
-        {
-            return _accountNumber;
-        }
-
-        set
-        {
-            _accountNumber = String.Format("{0:00000}", ++_counter);
-        }
+        get => _accountNumber;
+        set => _accountNumber = value;//String.Format("{0:00000}", ++_counter);
     }
 
     //accountType
-    public enum AccountType { текущий, расчетный, кредитный, депозит };
+    public enum AccountType { Current, Estimated, Credit, Deposit };
     private AccountType _accountType;
     public AccountType CurrentAccountType
     {
@@ -55,5 +48,10 @@ public class BankAccount
     private static uint Counter
     {
         get => _counter;
+    }
+
+    public static uint IncrementAccountNumber()
+    {
+        return ++_counter;
     }
 }

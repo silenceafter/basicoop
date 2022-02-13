@@ -2,7 +2,7 @@
 //пример 1
 var account1 = new BankAccount();
 account1.Balance = 5000.23;
-account1.CurrentAccountType = BankAccount.AccountType.кредитный;
+account1.CurrentAccountType = BankAccount.AccountType.Credit;
 //
 Show(account1);
 
@@ -17,7 +17,7 @@ Show(account1);
 //пример2
 var account2 = new BankAccount();
 account2.Balance = 1000;
-account2.CurrentAccountType = BankAccount.AccountType.кредитный;
+account2.CurrentAccountType = BankAccount.AccountType.Credit;
 //
 Show(account2);
 
@@ -32,7 +32,7 @@ Show(account2);
 //пример3
 var account3 = new BankAccount();
 account3.Balance = 2000;
-account3.CurrentAccountType = BankAccount.AccountType.текущий;
+account3.CurrentAccountType = BankAccount.AccountType.Current;
 //
 Show(account3);
 
@@ -60,26 +60,19 @@ public class BankAccount
 {
     public BankAccount()
     {
-        AccountNumber = "";
+        _accountNumber = IncrementAccountNumber();//AccountNumber = "";
     }
 
     //accountNumber
-    private string _accountNumber = "00000";
-    public string AccountNumber
+    private uint _accountNumber;// = "00000";
+    public uint AccountNumber
     {
-        get
-        {
-            return _accountNumber;
-        }
-
-        set
-        {
-            _accountNumber = String.Format("{0:00000}", ++_counter);
-        }
+        get => _accountNumber;
+        set => _accountNumber = value;//String.Format("{0:00000}", ++_counter);
     }
 
     //accountType
-    public enum AccountType { текущий, расчетный, кредитный, депозит };
+    public enum AccountType { Current, Estimated, Credit, Deposit };
     private AccountType _accountType;
     public AccountType CurrentAccountType
     {
@@ -99,38 +92,34 @@ public class BankAccount
     private static uint Counter
     {
         get => _counter;
-        //set => _counter = value;
+    }
+
+    public static uint IncrementAccountNumber()
+    {
+        return ++_counter;
     }
 
     public bool GetMoney(double value)
     {
         //снятие со счета
-        bool done = false;
         double balance = _balance;
         if (balance - value >= 0)
         {
             //деньги можно снять, изменяем баланс
             _balance -= value;
-            done = true;
+            return true;
         }
-        else
-        {
-            //снять нельзя
-            done = false;
-        }
-
-        return done;
+        return false;
     }
 
     public bool SetMoney(double value)
     {
         //положить на счет
-        bool done = false;
         if (value > 0)
         {
             _balance += value;
-            done = true;
+            return true;
         }
-        return done;
+        return false;
     }
 }

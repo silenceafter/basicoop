@@ -1,8 +1,8 @@
 ﻿//1
 var account = new BankAccount();
-account.AccountNumber = "1234";
+account.AccountNumber = 1;
 account.Balance = 5000.23;
-account.CurrentAccountType = BankAccount.AccountType.кредитный;
+account.CurrentAccountType = BankAccount.AccountType.Credit;
 //
 Console.WriteLine($"Номер аккаунта: {account.AccountNumber}");
 Console.WriteLine($"Баланс: {account.Balance}");
@@ -12,16 +12,15 @@ Console.ReadKey();
 public class BankAccount
 {
     //accountNumber
-    private string _accountNumber;
-    public string AccountNumber
+    private uint _accountNumber;
+    public uint AccountNumber
     {
         get => _accountNumber;
-
         set => _accountNumber = value;
     }
 
     //accountType
-    public enum AccountType { текущий, расчетный, кредитный, депозит };
+    public enum AccountType { Current, Estimated, Credit, Deposit };
     private AccountType _accountType;
     public AccountType CurrentAccountType
     {

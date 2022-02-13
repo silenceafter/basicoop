@@ -5,11 +5,11 @@ var account1 = new BankAccount(5000.23);
 accountList.Add(account1);
 
 //2 - type
-var account2 = new BankAccount(BankAccount.AccountType.текущий);
+var account2 = new BankAccount(BankAccount.AccountType.Current);
 accountList.Add(account2);
 
 //3 - balance & type
-var account3 = new BankAccount(700, BankAccount.AccountType.расчетный);
+var account3 = new BankAccount(700, BankAccount.AccountType.Estimated);
 accountList.Add(account3);
 
 //4 - default
@@ -30,7 +30,7 @@ public class BankAccount
     public BankAccount()
     {
         _balance = 100;
-        _accountType = BankAccount.AccountType.депозит;
+        _accountType = BankAccount.AccountType.Deposit;
         _accountNumber = IncrementAccountNumber();
     }
 
@@ -54,14 +54,14 @@ public class BankAccount
     }
 
     //accountNumber
-    private string _accountNumber = "00000";
-    public string AccountNumber
+    private uint _accountNumber;// = "00000";
+    public uint AccountNumber
     {
         get => _accountNumber;
     }
 
     //accountType
-    public enum AccountType { текущий, расчетный, кредитный, депозит };
+    public enum AccountType { Current, Estimated, Credit, Deposit };
     private AccountType _accountType;
     public AccountType CurrentAccountType
     {
@@ -81,8 +81,9 @@ public class BankAccount
         get => _counter;
     }
 
-    public static string IncrementAccountNumber()
+    public static uint IncrementAccountNumber()
     {
-        return String.Format("{0:00000}", ++_counter);
+        //return String.Format("{0:00000}", ++_counter);
+        return ++_counter;
     }
 }
