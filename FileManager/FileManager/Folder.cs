@@ -1,9 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace FileManager
 {
     public class Folder
@@ -19,20 +13,55 @@ namespace FileManager
         {
             _Name = Name;
             _Parent = Drive;
-            Files = new List<File>();
-            this.Hidden = Hidden;
-            this.ReadOnly = ReadOnly;
-            this.Size = Size;
-            this.Date = Date;
+            //_Files = new IEnumerable<File>();
+            _Hidden = Hidden;
+            _ReadOnly = ReadOnly;
+            _Size = Size;
+            _Date = Date;
         }
 
         private string _Name;
         private Drive _Parent;
-        public List<File> Files { get; }
-        public bool Hidden { get; }
-        public bool ReadOnly { get; }
-        public int Size { get; }
-        public DateTime Date { get; }
+        //public IEnumerable<File> _Files;
+        private bool _Hidden;
+        private bool _ReadOnly;
+        private int _Size;
+        private DateTime _Date;
+
+        public string Name 
+        {
+            get => _Name;
+        }
+
+        public Drive Parent
+        {
+            get => _Parent;
+        }
+
+        /*public IEnumerable<FileManager.File> Files 
+        {
+            get => _Files;
+        }*/
+
+        public bool Hidden
+        {
+            get => _Hidden;
+        }
+
+        public bool ReadOnly
+        {
+            get => _ReadOnly;
+        }
+
+        public int Size
+        {
+            get => _Size;
+        }
+
+        public DateTime Date
+        {
+            get => _Date;
+        }
 
         public bool AddFile(File File)
         {
@@ -57,6 +86,6 @@ namespace FileManager
         public Folder GetParent()
         {
             return null;
-        }
+        }    
     }
 }

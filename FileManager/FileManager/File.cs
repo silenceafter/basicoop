@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.Collections;
 namespace FileManager
 {
     public class File
@@ -15,22 +10,47 @@ namespace FileManager
             bool ReadOnly,
             int Size,
             DateTime Date
-            )
+        ) 
         {
             _Name = Name;
             _Parent = Folder;
-            this.Hidden = Hidden;
-            this.ReadOnly = ReadOnly;
-            this.Size = Size;
-            this.Date = Date;
+            _Hidden = Hidden;
+            _ReadOnly = ReadOnly;
+            _Size = Size;
+            _Date = Date;
         }
 
         private string _Name;
         private Folder _Parent;
-        public bool Hidden { get; }
-        public bool ReadOnly { get; }
-        public int Size { get; }
-        public DateTime Date { get; }
+        private bool _Hidden;
+        private bool _ReadOnly;
+        private int _Size;
+        private DateTime _Date;
+
+        public string Name 
+        {
+            get => _Name;
+        }
+
+        public Folder Parent
+        {
+            get => _Parent;
+        }
+
+        public bool Hidden
+        {
+            get => _Hidden;
+        }
+
+        public bool ReadOnly
+        {
+            get => _ReadOnly;
+        }
+
+        public int Size
+        {
+            get => _Size;
+        }
 
         public Folder GetParent()
         {
