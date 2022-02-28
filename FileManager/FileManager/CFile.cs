@@ -1,9 +1,9 @@
 using System.Collections;
 namespace FileManager
 {
-    public class File
+    public class CFile
     {
-        public File(
+        public CFile(
             string Name,
             Folder Folder,
             bool Hidden,
