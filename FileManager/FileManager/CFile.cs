@@ -5,7 +5,7 @@ namespace FileManager
     {
         public CFile(
             string Name,
-            Folder Folder,
+            Folder Parent,
             bool Hidden,
             bool ReadOnly,
             int Size,
@@ -13,7 +13,7 @@ namespace FileManager
         ) 
         {
             _Name = Name;
-            _Parent = Folder;
+            _Parent = Parent;
             _Hidden = Hidden;
             _ReadOnly = ReadOnly;
             _Size = Size;

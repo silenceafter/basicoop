@@ -8,7 +8,7 @@ namespace FileManager
             Drive Drive,
             Folder Parent,
             List<Folder> Folders,
-            List<CFile> CFiles,
+            List<CFile> Files,
             string Attributes,
             int Size, 
             DateTime Date
@@ -18,7 +18,7 @@ namespace FileManager
             _Drive = Drive;
             _Parent = Parent;
             _Folders = new List<Folder>();
-            _CFiles = new List<CFile>();
+            _Files = new List<CFile>();
             //_Files = new IEnumerable<File>();
             _Attributes = Attributes;
             _Size = Size;
@@ -29,7 +29,7 @@ namespace FileManager
         private Drive _Drive;
         private Folder _Parent;
         private List<Folder> _Folders;
-        private List<CFile> _CFiles;
+        private List<CFile> _Files;
         //public IEnumerable<File> _Files;
         private string _Attributes;
         private int _Size;
@@ -53,11 +53,13 @@ namespace FileManager
         public List<Folder> Folders
         {
             get => _Folders;
+            set => _Folders = value;
         }
 
-        public List<CFile> CFiles
+        public List<CFile> Files
         {
-            get => _CFiles;
+            get => _Files;
+            set => _Files = value;
         }
 
         public string Attributes
