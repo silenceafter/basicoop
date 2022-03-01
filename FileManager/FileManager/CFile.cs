@@ -6,6 +6,7 @@ namespace FileManager
         public CFile(
             string Name,
             Folder Parent,
+            string Attributes,
             bool Hidden,
             bool ReadOnly,
             int Size,
@@ -14,6 +15,7 @@ namespace FileManager
         {
             _Name = Name;
             _Parent = Parent;
+            _Attributes = Attributes;
             _Hidden = Hidden;
             _ReadOnly = ReadOnly;
             _Size = Size;
@@ -22,6 +24,7 @@ namespace FileManager
 
         private string _Name;
         private Folder _Parent;
+        private string _Attributes;
         private bool _Hidden;
         private bool _ReadOnly;
         private int _Size;
@@ -35,6 +38,11 @@ namespace FileManager
         public Folder Parent
         {
             get => _Parent;
+        }
+
+        public string Attributes
+        {
+            get => _Attributes;
         }
 
         public bool Hidden
