@@ -1,10 +1,12 @@
 ﻿using System.IO;
 using FileManager;
 
-var fileSystem = new FileSystem();
-
+//var fileSystem = new FileSystem();
+var window = new Window();
+window.Show();
+int hh = 0;
 //drives
-var system =  Path.GetPathRoot(Environment.SystemDirectory);//var bb = System.Environment.GetEnvironmentVariable("WINDIR");
+/*var system =  Path.GetPathRoot(Environment.SystemDirectory);//var bb = System.Environment.GetEnvironmentVariable("WINDIR");
 var drives = DriveInfo.GetDrives();
 //
 List<Drive> drivesList = new List<Drive>();
@@ -98,7 +100,7 @@ if (currentDrive != null)
             ));
         }
     //}
-}
+}*/
 
 
 

@@ -77,9 +77,48 @@ namespace FileManager
             get => _Date;
         }
 
+        public void Scan()
+        {
+            //directories
+            var current = new DirectoryInfo(Name);
+            var directories = current.GetDirectories();            
+            Folders = new List<Folder>();            
+
+            //files
+            var files = current.GetFiles();
+            Files = new List<CFile>();
+            //
+            for(int i = 0; i < directories.Length; i++) 
+            {
+                Folders.Add(new Folder(
+                    directories[i].FullName,
+                    Drive,
+                    this,
+                    null,
+                    null,
+                    directories[i].ToString(), 
+                    1000, 
+                    DateTime.Now
+                ));
+            }
+
+            for(int i = 0; i < files.Length; i++)
+            {
+                Files.Add(new CFile(
+                    files[i].FullName,
+                    this,
+                    files[i].Attributes.ToString(),
+                    false,
+                    false,
+                    1000,
+                    DateTime.Now
+                ));
+            }
+        }
+
         /*public void Add(FileManager.File NFile)
         {            
-            _Files.Add(NFile); 
+            _Files.Add(NFile);
         }
 
         public void Add(FileManager.Folder Folder)

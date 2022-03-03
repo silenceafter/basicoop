@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace FileManager
 {
     public class Drive
@@ -8,7 +10,8 @@ namespace FileManager
             string FileSystem,
             bool System,
             int Size,
-            int Used
+            int Used,
+            int Type
         )
         {
             _Name = Name;
@@ -17,10 +20,14 @@ namespace FileManager
             _System = System;
             _Size = Size;
             _Used = Used;
+
+            //добавление корневой папки
+            AddRootFolder();
         }
 
         private string _Name;
         private Computer _Parent;
+        private Folder _RootFolder;
         private string _FileSystem;
         private bool _System;
         private int _Size;
@@ -35,6 +42,12 @@ namespace FileManager
         {
             get => _Parent;
         }
+
+        public Folder RootFolder
+        {
+            get => _RootFolder;
+            set => _RootFolder = value;
+        }  
 
         public string FileSystem
         {
@@ -55,5 +68,26 @@ namespace FileManager
         {
             get => _Used;
         }
+
+        public void AddRootFolder() 
+        {
+            //current directory
+            var current = new DirectoryInfo(Name);
+            //получить имя диска текущей директории
+            var root = current.Root;
+            var rootName = root.Name.Trim().ToLower();
+
+            //объект текущей папки Folder
+            RootFolder = new Folder(
+                current.FullName, 
+                this,
+                null,
+                new List<Folder>(), 
+                new List<CFile>(), 
+                current.Attributes.ToString(), 
+                1000, 
+                DateTime.Now);
+            RootFolder.Scan();
+        }    
     }
 }
