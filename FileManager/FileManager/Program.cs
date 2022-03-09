@@ -1,16 +1,18 @@
 ﻿using System.IO;
 using FileManager;
 
-//var fileSystem = new FileSystem();
-var window = new Window();
-window.Show();
+var cSystem = new CSystem();
+var fileSystem = cSystem.FileSystem;
+cSystem.ScanPath("/home/lenovo/Документы/vscode/");
+//var window = new Window();
+//window.Show();
 int hh = 0;
 //drives
 /*var system =  Path.GetPathRoot(Environment.SystemDirectory);//var bb = System.Environment.GetEnvironmentVariable("WINDIR");
 var drives = DriveInfo.GetDrives();
 //
 List<Drive> drivesList = new List<Drive>();
-    for(int i = 0; i < drives.Length; i++) 
+    for(int i = 0; i < drives.Length; i++)
     {
         drivesList.Add(new Drive(
             drives[i].Name,

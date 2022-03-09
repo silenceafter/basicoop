@@ -1,8 +1,7 @@
 using System.IO;
-
 namespace FileManager
 {
-    public class FileSystem : ICSystem
+    public class FileSystem
     {
         public FileSystem()
         {
