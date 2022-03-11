@@ -65,5 +65,23 @@ namespace FileManager
         {
             //
         }
+
+        public Computer? GetUserMachine()
+        {
+            Computer Computer = null;
+            if (Computers.Count > 0)
+            {
+                //компьютер пользователя
+                Computer = Computers[0];
+                foreach(var CComputer in Computers)
+                {
+                    if (Computer.IsUserMachine)
+                    {
+                        return Computer;
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

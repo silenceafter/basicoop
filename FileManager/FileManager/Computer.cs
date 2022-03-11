@@ -77,5 +77,18 @@ namespace FileManager
                 2
             ));
         }
+
+        public Drive? GetDriveByDefault()
+        {
+            //диск по умолчанию
+            foreach(var Drive in Drives)
+            {
+                if (Drive.System) 
+                {
+                    return Drive;
+                }
+            }
+            return null;
+        }
     }
 }
