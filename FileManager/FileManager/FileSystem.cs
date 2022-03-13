@@ -9,12 +9,13 @@ namespace FileManager
             _Type = GetSystemType();
             //
             _Computers = new List<Computer>();
-            _Computers.Add(new Computer(true, this));//добавить этот компьютер            
+            _Computers.Add(new Computer(true, this));//добавить этот компьютер           
         }
 
         private string _Name;
         private int _Type;
         private List<Computer> _Computers;
+        private FileSystem _Parent;
 
         public string Name
         {
@@ -31,13 +32,18 @@ namespace FileManager
             get => _Computers;
         }
 
+        public FileSystem Parent
+        {
+            get => _Parent;
+        }
+
         public void Create()
         {
             //создать файловую систему (TreeObject -> FileSystem)
-            var computers = Computers;
+            /*var computers = Computers;
             if (computers.Count > 0) {
                 var userMachine = computers[0];
-            }            
+            }*/           
         }
 
         public string? GetSystemDriveByDefault()
@@ -82,6 +88,11 @@ namespace FileManager
                 }
             }
             return null;
+        }
+
+        public void Add(string path)
+        {
+            //добавить путь в дерево
         }
     }
 }

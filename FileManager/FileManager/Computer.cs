@@ -90,5 +90,21 @@ namespace FileManager
             }
             return null;
         }
+
+        public Drive? FindDrive(DirectoryInfo drive)
+        {
+            //ищем диск, который совпадает с искомым
+            for(int i = 0; i < Drives.Count; i++)
+                {                  
+                    if (Drives[i] != null)
+                    {
+                        if (Drives[i].Name.Trim().ToLower() == drive.Name.Trim().ToLower())
+                        {
+                            return Drives[i];
+                        } 
+                    }                                                                                   
+                }            
+            return null;
+        }
     }
 }

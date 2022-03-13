@@ -17,8 +17,8 @@ namespace FileManager
             _Name = Name;
             _Drive = Drive;
             _Parent = Parent;
-            _Folders = new List<Folder>();
-            _Files = new List<CFile>();
+            _Folders = Folders;//new List<Folder>();
+            _Files = Files;//new List<CFile>();
             //_Files = new IEnumerable<File>();
             _Attributes = Attributes;
             _Size = Size;
@@ -115,6 +115,48 @@ namespace FileManager
                 ));
             }
         }
+
+        public Folder? FindFolder(DirectoryInfo folder)
+        {
+            foreach(var Current in Folders)
+            {
+                //сравниваем путь 
+                if (Current.Name.Trim().ToLower() == folder.FullName.Trim().ToLower())
+                {
+                    return Current;
+                }
+            }            
+            return null;
+        }
+
+        public CFile? FindFile(DirectoryInfo file)
+        {
+            foreach(var Current in Files)
+            {
+                //сравниваем путь 
+                if (Current.Name.Trim().ToLower() == file.FullName.Trim().ToLower())
+                {
+                    return Current;
+                }
+            }            
+            return null;
+        }
+
+        public Folder? Add(DirectoryInfo folder)
+        {
+            var current = new Folder(
+                    folder.Name, 
+                    Drive, 
+                    Parent, 
+                    new List<Folder>(), 
+                    new List<CFile>(), 
+                    "", 
+                    1000,
+                    DateTime.Now);
+            Folders.Add(current);
+            return current;
+        }
+        
 
         /*public void Add(FileManager.File NFile)
         {            

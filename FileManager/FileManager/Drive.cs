@@ -88,6 +88,16 @@ namespace FileManager
                 1000, 
                 DateTime.Now);
             RootFolder.Scan();
-        }    
+        }   
+
+        public bool FindDrive(DirectoryInfo drive)
+        {
+            //сравниваем путь 
+            if (Name.Trim().ToLower() == drive.Name.Trim().ToLower())
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
