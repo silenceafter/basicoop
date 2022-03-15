@@ -1,7 +1,57 @@
 using System.Collections;
 namespace FileManager
 {
-    public class CFile
+    public class CFile : FileSystemObject
+    {
+        public CFile(
+            string Name,
+            string Attributes,
+            int Size,
+            DateTime Date,
+            Folder Parent
+        )
+        {
+            _Name = Name;
+            _Attributes = Attributes;
+            _Size = Size;
+            _Date = Date;
+            _Parent = Parent;
+        }
+
+        private string _Name;
+        private string _Attributes = "";
+        private int _Size;
+        private DateTime _Date;
+        private Folder _Parent;
+
+        public override string Name 
+        { 
+            get => _Name; 
+        }
+
+        public override string Attributes 
+        { 
+            get => _Attributes;
+        }
+
+        public override int Size
+        { 
+            get => _Size; 
+        }
+        
+        public override DateTime Date 
+        { 
+            get => _Date; 
+        }
+
+        public Folder Parent
+        {
+            get => _Parent;
+            set => _Parent = value;
+        }
+    }
+
+    /*public class CFile
     {
         public CFile(
             string Name,
@@ -64,5 +114,5 @@ namespace FileManager
         {
             return null;
         }
-    }
+    }*/
 }

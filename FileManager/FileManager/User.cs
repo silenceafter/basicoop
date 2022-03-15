@@ -4,7 +4,7 @@ namespace FileManager
 {
     public class User
     {
-        public User()
+        /*public User()
         {
             _FolderByDefault = GetSystemDriveByDefault();
         }
@@ -24,6 +24,6 @@ namespace FileManager
         public void GetFileSystemTree()
         {
             //
-        }
+        }*/
     }
 }

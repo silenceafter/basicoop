@@ -1,8 +1,65 @@
 using System.IO;
-
 namespace FileManager
 {
-    public class Drive
+    public class Drive : FileSystemObject
+    {
+        public Drive(
+            string Name,
+            string Attributes,
+            int Size,
+            DateTime Date,
+            Computer Parent
+        )
+        {
+            _Name = Name;
+            _Attributes = Attributes;
+            _Size = Size;
+            _Date = Date;
+            _Parent = Parent;
+            _RootFolder = new Folder(Name, Attributes, Size, Date, null);
+        }
+
+        private string _Name;
+        private string _Attributes = "";
+        private int _Size;
+        private DateTime _Date;
+        private Computer _Parent;
+        private Folder _RootFolder;
+
+        public override string Name 
+        { 
+            get => _Name; 
+        }
+
+        public override string Attributes 
+        { 
+            get => _Attributes;
+        }
+
+        public override int Size
+        { 
+            get => _Size; 
+        }
+        
+        public override DateTime Date 
+        { 
+            get => _Date; 
+        }
+
+        public Computer Parent
+        {
+            get => _Parent;
+            set => _Parent = value;
+        }
+
+        public Folder RootFolder
+        {
+            get => _RootFolder;
+            set => _RootFolder = value;
+        }
+    }
+
+    /*public class Drive
     {
         public Drive(
             string Name,
@@ -99,5 +156,5 @@ namespace FileManager
             }
             return false;
         }
-    }
+    }*/
 }

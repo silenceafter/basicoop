@@ -1,7 +1,73 @@
 using System.IO;
 namespace FileManager
 {
-    public class Folder
+    public class Folder : FileSystemObject
+    {
+        public Folder(
+            string Name,
+            string Attributes,
+            int Size,
+            DateTime Date,
+            Folder? Parent
+        )
+        {
+            _Name = Name;
+            _Attributes = Attributes;
+            _Size = Size;
+            _Date = Date;
+            _Parent = Parent;
+            _ChildFolders = new List<Folder>();
+            _ChildFiles = new List<CFile>();
+        }
+
+        private string _Name;
+        private string _Attributes = "";
+        private int _Size;
+        private DateTime _Date;
+        private Folder? _Parent;
+        private List<Folder> _ChildFolders;
+        private List<CFile> _ChildFiles;
+
+        public override string Name 
+        { 
+            get => _Name; 
+        }
+
+        public override string Attributes 
+        { 
+            get => _Attributes;
+        }
+
+        public override int Size
+        { 
+            get => _Size; 
+        }
+        
+        public override DateTime Date 
+        { 
+            get => _Date; 
+        }
+
+        public Folder? Parent
+        {
+            get => _Parent;
+            set => _Parent = value;
+        }
+
+        public List<Folder> ChildFolders
+        {
+            get => _ChildFolders;
+            set => _ChildFolders = value;
+        }
+
+        public List<CFile> ChildFiles
+        {
+            get => _ChildFiles;
+            set => _ChildFiles = value;
+        }
+    }
+
+    /*public class Folder
     {
         public Folder(
             string Name, 
@@ -218,6 +284,6 @@ for(int i = 0; i <= MyMain.Pagination; i++)
     }
 }
             return true;
-        }*/
-    }
+        }
+    }*/
 }

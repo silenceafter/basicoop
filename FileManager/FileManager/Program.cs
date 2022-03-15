@@ -1,13 +1,14 @@
 ﻿using System.IO;
 using FileManager;
 
+
 var cSystem = new CSystem();
 var fileSystem = cSystem.FileSystem;
 //cSystem.ScanPath("/home/lenovo/Документы/vscode/");
-cSystem.ScanPath("/home/lenovo/Документы/vscode/homeWork2/homeWork2.sln");
+//cSystem.ScanPath("/home/lenovo/Документы/vscode/homeWork2/homeWork2.sln");
 //var window = new Window();
 //window.Show();
-int hh = 0;
+//int hh = 0;
 //drives
 /*var system =  Path.GetPathRoot(Environment.SystemDirectory);//var bb = System.Environment.GetEnvironmentVariable("WINDIR");
 var drives = DriveInfo.GetDrives();

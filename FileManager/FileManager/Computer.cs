@@ -1,6 +1,59 @@
 namespace FileManager
 {
-    public class Computer
+    public class Computer : Device
+    {
+        public Computer(bool IsUserMachine, CFileSystem Parent)
+        {
+            _Name = Environment.MachineName;
+            _IsUserMachine = IsUserMachine;
+            _Parent = Parent;
+            //
+            _ChildDrives = new List<Drive>();
+            string path = GetSystemDriveByDefault();
+            //_ChildDrives.Add(new)
+        }
+
+        private string _Name;
+        private bool _IsUserMachine;
+        private CFileSystem _Parent;
+        private List<Drive> _ChildDrives;
+
+        public override string Name 
+        { 
+            get => _Name; 
+        }
+        public override bool IsUserMachine 
+        { 
+            get => _IsUserMachine; 
+        }
+
+        public CFileSystem Parent
+        {
+            get => _Parent;
+            set => _Parent = value;
+        }
+
+        public List<Drive> ChildDrives
+        {
+            get => _ChildDrives;
+            set => _ChildDrives = value;
+        }
+
+        public string GetSystemDriveByDefault()
+        {
+            var path = Path.GetPathRoot(Environment.SystemDirectory);
+            if (path != null)
+            {
+                return path;
+            } 
+            else 
+            {
+                //не можем определить системный диск/проблема чтения
+                throw new Exception();
+            }
+        }
+    }
+    /*public class Computer
     {
         public Computer(bool IsUserMachine, FileSystem Parent)
         {
@@ -106,5 +159,5 @@ namespace FileManager
                 }            
             return null;
         }
-    }
+    }*/
 }

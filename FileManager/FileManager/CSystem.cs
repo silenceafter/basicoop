@@ -5,13 +5,13 @@ namespace FileManager
     {
         public CSystem() 
         {
-            _FileSystem = new FileSystem();
+            _FileSystem = new CFileSystem();
             
         }
 
-        private FileSystem _FileSystem;
+        private CFileSystem _FileSystem;
 
-        public FileSystem FileSystem
+        public CFileSystem FileSystem
         {
             get => _FileSystem;
         }
@@ -44,7 +44,7 @@ namespace FileManager
             }
 
             //fileSystem -> userMachine
-            var fileSystem = FileSystem;
+            /*var fileSystem = FileSystem;
             Computer? userMachine = fileSystem.GetUserMachine();
             //
             if (userMachine != null)
@@ -110,7 +110,7 @@ namespace FileManager
                         }
                     }                                                                                   
                 }*/
-            }
+            //}
             return "";
         }     
     }

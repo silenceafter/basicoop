@@ -1,7 +1,12 @@
 using System.IO;
 namespace FileManager
 {
-    public class FileSystem
+    public abstract class FileSystem
+    {
+        public abstract string Name { get; }
+        public abstract int Type { get; }
+    }
+    /*public class FileSystem
     {
         public FileSystem()
         {
@@ -46,7 +51,7 @@ namespace FileManager
             }*/           
         }
 
-        public string? GetSystemDriveByDefault()
+        /*public string? GetSystemDriveByDefault()
         {
             return Path.GetPathRoot(Environment.SystemDirectory);
         }
@@ -95,4 +100,4 @@ namespace FileManager
             //добавить путь в дерево
         }
     }
-}
+}*/
