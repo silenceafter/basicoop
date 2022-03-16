@@ -44,7 +44,7 @@ namespace FileManager
             }
 
             //fileSystem -> userMachine
-            /*var fileSystem = FileSystem;
+            var fileSystem = FileSystem;
             Computer? userMachine = fileSystem.GetUserMachine();
             //
             if (userMachine != null)
@@ -56,14 +56,14 @@ namespace FileManager
                     if (folders.Count > 1)
                     {
                         //есть вложенные папки
-                        Folder currentFolder = currentDrive.RootFolder;
+                        Folder? currentFolder = currentDrive.RootFolder;
                         for(int i = folders.Count - 2; i > 0; i--)
                         {
                             var attribute = folders[i].Attributes;
                             if (attribute.HasFlag(FileAttributes.Directory))
                             {
                                 //папка
-                                var response = currentFolder.FindFolder(folders[i]);
+                                Folder? response = currentFolder.FindFolder(folders[i]);
                                 if (currentFolder != null)
                                 {
                                     //папка найдена
@@ -80,7 +80,7 @@ namespace FileManager
                             else 
                             {
                                 //файл
-                                var currentFile = currentFolder.FindFile(folders[i]);
+                                CFile? currentFile = currentFolder.FindFile(folders[i]);
                                 if (currentFile != null)
                                 {
 
@@ -110,7 +110,7 @@ namespace FileManager
                         }
                     }                                                                                   
                 }*/
-            //}
+            }
             return "";
         }     
     }

@@ -9,8 +9,18 @@ namespace FileManager
             _Parent = Parent;
             //
             _ChildDrives = new List<Drive>();
-            string path = GetSystemDriveByDefault();
-            //_ChildDrives.Add(new)
+            //
+            if (_Parent.Type == 1)
+            {
+                //windows
+                string path = GetSystemDriveByDefault();
+                AddDrivesW();
+            }
+            else 
+            {
+                //linux
+                AddDrivesL();
+            }
         }
 
         private string _Name;
@@ -51,6 +61,50 @@ namespace FileManager
                 //не можем определить системный диск/проблема чтения
                 throw new Exception();
             }
+        }
+
+        public void AddDrivesW()
+        {
+            //windows
+            var drives = DriveInfo.GetDrives();
+            for(int i = 0; i < drives.Length; i++) 
+            {
+                _ChildDrives.Add(new Drive(
+                    drives[i].Name,
+                    drives[i].DriveFormat,
+                    (int)drives[i].TotalSize,
+                    DateTime.Now,
+                    this
+                ));
+            }                       
+        }
+        
+        public void AddDrivesL()
+        {
+            //linux (в системе нет понятия диск, эта сущность используется упрщенно и при выводе на экран игнорируется)
+            _ChildDrives.Add(new Drive(
+                "/",
+                "system",
+                1000,
+                DateTime.Now,
+                this
+            ));
+        }
+
+        public Drive? FindDrive(DirectoryInfo drive)
+        {
+            //ищем диск, который совпадает с искомым
+            for(int i = 0; i < ChildDrives.Count; i++)
+                {                  
+                    if (ChildDrives[i] != null)
+                    {
+                        if (ChildDrives[i].Name.Trim().ToUpper() == drive.Name.Trim().ToUpper())
+                        {
+                            return ChildDrives[i];
+                        } 
+                    }                                                                                   
+                }            
+            return null;
         }
     }
     /*public class Computer

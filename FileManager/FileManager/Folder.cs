@@ -8,6 +8,7 @@ namespace FileManager
             string Attributes,
             int Size,
             DateTime Date,
+            Drive Drive,
             Folder? Parent
         )
         {
@@ -15,6 +16,7 @@ namespace FileManager
             _Attributes = Attributes;
             _Size = Size;
             _Date = Date;
+            _Drive = Drive;
             _Parent = Parent;
             _ChildFolders = new List<Folder>();
             _ChildFiles = new List<CFile>();
@@ -24,6 +26,7 @@ namespace FileManager
         private string _Attributes = "";
         private int _Size;
         private DateTime _Date;
+        private Drive _Drive;
         private Folder? _Parent;
         private List<Folder> _ChildFolders;
         private List<CFile> _ChildFiles;
@@ -48,6 +51,12 @@ namespace FileManager
             get => _Date; 
         }
 
+        public Drive Drive
+        {
+            get => _Drive;
+            set => _Drive = value;
+        }
+
         public Folder? Parent
         {
             get => _Parent;
@@ -64,6 +73,67 @@ namespace FileManager
         {
             get => _ChildFiles;
             set => _ChildFiles = value;
+        }
+
+        public void Scan()
+        {
+            //directories
+            var current = new DirectoryInfo(Name);
+            var directories = current.GetDirectories();            
+            ChildFolders = new List<Folder>();            
+
+            //files
+            var files = current.GetFiles();
+            ChildFiles = new List<CFile>();
+            //
+            for(int i = 0; i < directories.Length; i++) 
+            {
+                ChildFolders.Add(new Folder(
+                    directories[i].FullName,
+                    directories[i].ToString(),
+                    1000,
+                    DateTime.Now,
+                    Drive,
+                    this                
+                ));
+            }
+
+            for(int i = 0; i < files.Length; i++)
+            {
+                ChildFiles.Add(new CFile(
+                    files[i].FullName,
+                    files[i].Attributes.ToString(),
+                    1000,
+                    DateTime.Now,
+                    this
+                ));
+            }
+        }
+
+        public Folder? FindFolder(DirectoryInfo folder)
+        {
+            foreach(var Current in ChildFolders)
+            {
+                //сравниваем путь 
+                if (Current.Name.Trim().ToUpper() == folder.FullName.Trim().ToUpper())
+                {
+                    return Current;
+                }
+            }            
+            return null;
+        }
+
+        public CFile? FindFile(DirectoryInfo file)
+        {
+            foreach(var Current in ChildFiles)
+            {
+                //сравниваем путь 
+                if (Current.Name.Trim().ToUpper() == file.FullName.Trim().ToUpper())
+                {
+                    return Current;
+                }
+            }            
+            return null;
         }
     }
 

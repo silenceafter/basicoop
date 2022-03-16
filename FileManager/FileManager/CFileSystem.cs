@@ -8,6 +8,7 @@ namespace FileManager
             _Name = Environment.OSVersion.ToString();
             _Type = GetSystemType();
             _ChildComputers = new List<Computer>();
+            _ChildComputers.Add(new Computer(true, this));//добавить этот компьютер
         }
 
         private string _Name;
@@ -43,6 +44,24 @@ namespace FileManager
                 return 2;
             }
             return 0;
+        }
+
+        public Computer? GetUserMachine()
+        {
+            Computer? Computer = null;
+            if (ChildComputers.Count > 0)
+            {
+                //компьютер пользователя
+                Computer = ChildComputers[0];
+                foreach(var CComputer in ChildComputers)
+                {
+                    if (CComputer.IsUserMachine)
+                    {
+                        return CComputer;
+                    }
+                }
+            }
+            return null;
         }
     }
 }
