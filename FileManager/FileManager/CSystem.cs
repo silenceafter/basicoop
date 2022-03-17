@@ -57,24 +57,22 @@ namespace FileManager
                     {
                         //есть вложенные папки
                         Folder? currentFolder = currentDrive.RootFolder;
-                        for(int i = folders.Count - 2; i > 0; i--)
+                        for(int i = folders.Count - 2; i >= 0; i--)
                         {
                             var attribute = folders[i].Attributes;
                             if (attribute.HasFlag(FileAttributes.Directory))
                             {
                                 //папка
                                 Folder? response = currentFolder.FindFolder(folders[i]);
-                                if (currentFolder != null)
+                                if (response != null)
                                 {
                                     //папка найдена
                                     currentFolder = response;
-                                    
                                 }
                                 else 
                                 {
                                     //добавить папку
-                                    
-                                    break;
+                                    currentFolder = currentFolder.AddFolder(folders[i]);
                                 }
                             }
                             else 
@@ -83,33 +81,18 @@ namespace FileManager
                                 CFile? currentFile = currentFolder.FindFile(folders[i]);
                                 if (currentFile != null)
                                 {
-
+                                    //
                                 }
                                 else 
                                 {
+                                    //добавить файл
+                                    currentFolder.AddFile(folders[i]);
                                     break;
                                 }
-                            }
-
-                            
+                            }                            
                         }                                                
                     }
-                }
-
-                /*Drive? currentDrive = null;
-                List<Drive>? Drives = userMachine.Drives;
-                for(int i = 0; i < Drives.Count; i++)
-                {                  
-                    if (Drives[i] != null)
-                    {
-                        if (Drives[i].FindDrive(folders[folders.Count - 1]))
-                        {
-                            //диск найден
-                            currentDrive = Drives[i];
-                            break;
-                        }
-                    }                                                                                   
-                }*/
+                }            
             }
             return "";
         }     

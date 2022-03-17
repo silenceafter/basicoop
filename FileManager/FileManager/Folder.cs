@@ -135,6 +135,30 @@ namespace FileManager
             }            
             return null;
         }
+
+        public Folder? AddFolder(DirectoryInfo folder)
+        {            
+            ChildFolders.Add(new Folder(            
+                folder.FullName,
+                folder.Attributes.ToString(),
+                1000,
+                DateTime.Now,
+                Drive,
+                this
+            ));
+            return FindFolder(folder);
+        }
+
+        public void AddFile(DirectoryInfo file)
+        {
+            ChildFiles.Add(new CFile(
+                file.FullName,
+                file.Attributes.ToString(),
+                1000,
+                DateTime.Now,
+                this
+            ));
+        }
     }
 
     /*public class Folder
