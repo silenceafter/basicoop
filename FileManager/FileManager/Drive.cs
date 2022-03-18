@@ -16,7 +16,7 @@ namespace FileManager
             _Size = Size;
             _Date = Date;
             _Parent = Parent;
-            AddRootFolder();//_RootFolder = new Folder(Name, Attributes, Size, Date, null);
+            _RootFolder = GetRootFolder();//new Folder(Name, Attributes, Size, Date, this, null);
         }
 
         private string _Name;
@@ -24,7 +24,7 @@ namespace FileManager
         private int _Size;
         private DateTime _Date;
         private Computer _Parent;
-        private Folder? _RootFolder;
+        private Folder _RootFolder;
 
         public override string Name 
         { 
@@ -52,13 +52,13 @@ namespace FileManager
             set => _Parent = value;
         }
 
-        public Folder? RootFolder
+        public Folder RootFolder
         {
             get => _RootFolder;
             set => _RootFolder = value;
         }
 
-        public void AddRootFolder() 
+        public Folder GetRootFolder() 
         {
             //current directory
             var current = new DirectoryInfo(Name);
@@ -67,14 +67,15 @@ namespace FileManager
             var rootName = root.Name.Trim().ToLower();
 
             //объект текущей папки Folder
-            RootFolder = new Folder(
+            var rootFolder = new Folder(
                 current.FullName, 
                 current.Attributes.ToString(),
                 1000,
                 DateTime.Now,
                 this,
                 null);
-            RootFolder.Scan();
+            rootFolder.Scan();
+            return rootFolder;
         }
     }
 

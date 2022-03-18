@@ -136,9 +136,18 @@ namespace FileManager
             return null;
         }
 
-        public Folder? AddFolder(DirectoryInfo folder)
-        {            
-            ChildFolders.Add(new Folder(            
+        public Folder AddFolder(DirectoryInfo folder)
+        {       
+            var newFolder = new Folder(            
+                folder.FullName,
+                folder.Attributes.ToString(),
+                1000,
+                DateTime.Now,
+                Drive,
+                this);
+            ChildFolders.Add(newFolder);
+            return newFolder;
+            /*ChildFolders.Add(new Folder(            
                 folder.FullName,
                 folder.Attributes.ToString(),
                 1000,
@@ -146,7 +155,7 @@ namespace FileManager
                 Drive,
                 this
             ));
-            return FindFolder(folder);
+            return FindFolder(folder);*/
         }
 
         public void AddFile(DirectoryInfo file)

@@ -69,13 +69,15 @@ namespace FileManager
             var drives = DriveInfo.GetDrives();
             for(int i = 0; i < drives.Length; i++) 
             {
-                _ChildDrives.Add(new Drive(
-                    drives[i].Name,
-                    drives[i].DriveFormat,
-                    (int)drives[i].TotalSize,
-                    DateTime.Now,
-                    this
-                ));
+                if (drives[i].IsReady) {
+                    _ChildDrives.Add(new Drive(
+                        drives[i].Name,
+                        drives[i].DriveFormat,
+                        (int)drives[i].TotalSize,
+                        DateTime.Now,
+                        this
+                    ));
+                }                
             }                       
         }
         

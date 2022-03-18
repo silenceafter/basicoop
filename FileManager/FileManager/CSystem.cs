@@ -16,13 +16,12 @@ namespace FileManager
             get => _FileSystem;
         }
 
-        public string ScanPath(string path)
+        public void ScanPath(string path)
         {
             //сканировать путь, который отправляет ui
             //определим, существует ли такой путь в дереве или нет
             DirectoryInfo dinfo = new DirectoryInfo(path);
             List<DirectoryInfo> folders = new List<DirectoryInfo>();
-            bool isDirectory = false;
             
             //директория из строки в список
             var current = dinfo;
@@ -32,18 +31,6 @@ namespace FileManager
                 current = current.Parent;
             }
 
-            //директория или файл?
-            if (folders.Count > 0) 
-            {
-                var attribute = folders[0].Attributes;
-                if (attribute.HasFlag(FileAttributes.Directory))
-                {
-                    //директория
-                    isDirectory = true;
-                }
-            }
-
-            //fileSystem -> userMachine
             var fileSystem = FileSystem;
             Computer? userMachine = fileSystem.GetUserMachine();
             //
@@ -56,20 +43,19 @@ namespace FileManager
                     if (folders.Count > 1)
                     {
                         //есть вложенные папки
-                        Folder? currentFolder = currentDrive.RootFolder;
+                        Folder currentFolder = currentDrive.RootFolder;
                         for(int i = folders.Count - 2; i >= 0; i--)
                         {
                             var attribute = folders[i].Attributes;
                             if (attribute.HasFlag(FileAttributes.Directory))
                             {
                                 //папка
-                                Folder? response = currentFolder.FindFolder(folders[i]);
-                                if (response != null)
+                                var response = currentFolder.FindFolder(folders[i]);
+                                //папка найдена
+                                if (response is Folder responseNotNull)
                                 {
-                                    //папка найдена
-                                    currentFolder = response;
-                                }
-                                else 
+                                    currentFolder = responseNotNull;
+                                } else 
                                 {
                                     //добавить папку
                                     currentFolder = currentFolder.AddFolder(folders[i]);
@@ -79,22 +65,17 @@ namespace FileManager
                             {
                                 //файл
                                 CFile? currentFile = currentFolder.FindFile(folders[i]);
-                                if (currentFile != null)
-                                {
-                                    //
-                                }
-                                else 
+                                if (currentFile == null)
                                 {
                                     //добавить файл
                                     currentFolder.AddFile(folders[i]);
-                                    break;
+                                    return;
                                 }
                             }                            
                         }                                                
                     }
                 }            
             }
-            return "";
         }     
     }
 }

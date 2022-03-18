@@ -4,7 +4,9 @@ using FileManager;
 
 var cSystem = new CSystem();
 var fileSystem = cSystem.FileSystem;
-cSystem.ScanPath("/home/lenovo/Документы/vscode/");
+//cSystem.ScanPath("/home/lenovo/Документы/vscode/");
+cSystem.ScanPath("C:\\FOXPRO2\\M10870_NSI\\M10870.DBF");
+
 //cSystem.ScanPath("/home/lenovo/Документы/vscode/homeWork2/homeWork2.sln");
 //var window = new Window();
 //window.Show();
