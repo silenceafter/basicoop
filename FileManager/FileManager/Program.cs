@@ -5,11 +5,12 @@ using FileManager;
 var cSystem = new CSystem();
 var fileSystem = cSystem.FileSystem;
 //cSystem.ScanPath("/home/lenovo/Документы/vscode/");
-cSystem.ScanPath("C:\\FOXPRO2\\M10870_NSI\\M10870.DBF");
+//cSystem.ScanPath("C:\\FOXPRO2\\M10870_NSI\\M10870.DBF");
 
 //cSystem.ScanPath("/home/lenovo/Документы/vscode/homeWork2/homeWork2.sln");
-//var window = new Window();
-//window.Show();
+var window = new Window();
+window.Show();
+window.Show("l", fileSystem.ChildComputers[0].ChildDrives[0]);
 int hh = 0;
 //drives
 /*var system =  Path.GetPathRoot(Environment.SystemDirectory);//var bb = System.Environment.GetEnvironmentVariable("WINDIR");

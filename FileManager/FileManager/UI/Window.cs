@@ -81,8 +81,64 @@ namespace FileManager
             {
                 WriteAt("|", windowWidth / 2, i);
             }
-            Console.ReadLine();
+            //Console.ReadLine();
+        }
+
+        public async void Show(string part, Drive drive)
+        {
+            int left = 2;//"L"
+            int windowWidth = Console.WindowWidth;
+            int windowHeight = Console.WindowHeight;
+            //
+            if (part.ToUpper() == "R")
+            {
+                left += windowWidth / 2;                
+            }
+
+            WriteAt("111", 2, 2);
+            WriteAt("222", 2, 3);
+            WriteAt("333", 2, 4);
+
+            //очистка экрана
+            int j = 0;
+            for(int i = 1; i < windowHeight - 1; i++)
+            {
+                for(j = 1; j < windowWidth / 2 - 1; j++)
+                {
+                    WriteAt(" ", j, i);    
+                }            
+            }
+
+            WriteAt($"Диск { drive.Name }", 2, 2);
+            var folders = drive.RootFolder.ChildFolders;
+            var files = drive.RootFolder.ChildFiles;
             
+            //folders            
+            int row = 0;//номер строки
+            j = 0;
+            for(int i = 3; i < windowHeight - 1; i++)
+            {
+                if (j >= folders.Count)
+                {
+                    row = i;
+                    break;
+                }
+                WriteAt(folders[j].Name, 2, i);                
+                j++;
+            }
+
+            //files
+            j = 0;
+            for(int k = row; k < windowHeight - 1; k++)
+            {
+                if (j >= files.Count)
+                {
+                    break;
+                }
+                WriteAt(files[j].Name, 2, k);
+                j++;
+            }
+            Console.ReadLine();
         }
     }
 }
