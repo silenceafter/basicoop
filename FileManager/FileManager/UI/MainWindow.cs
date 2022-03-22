@@ -2,9 +2,111 @@ using System;
 using System.IO;
 namespace FileManager
 {
-
-    public class Window
+    public class MainWindow : ConsoleWindow
     {
+        public MainWindow(
+            string Name,
+            string Title,
+            ConsoleColor BackgroundColor,
+            ConsoleColor ForegroundColor,
+            bool Fullscreen
+            )
+        {
+            _Name = Name;
+            _Title = Title;
+            _Columns = GetColumns();
+            _Rows = GetRows();
+            _BackgroundColor = BackgroundColor;
+            _ForegroundColor = ForegroundColor;
+            _FullScreen = Fullscreen;
+            //
+            SetBackgroudColor();
+            SetForegroundColor();
+            SetTitle();
+            //SetFullscreen(Fullscreen);
+        }
+
+        private string _Name;
+        private string _Title;
+        private int _Columns;
+        private int _Rows;
+        private ConsoleColor _BackgroundColor;
+        private ConsoleColor _ForegroundColor;
+        private bool _FullScreen;
+
+        public override string Name 
+        {
+            get => _Name;
+        }
+
+        public override string Title
+        {
+            get => _Title;
+            set => _Title = value;
+        }
+
+        public override int Columns
+        {
+            get => _Columns;
+            set => _Columns = value;
+        }
+
+        public override int Rows
+        {
+            get => _Rows;
+            set => _Rows = value;
+        }
+
+        public override ConsoleColor BackgroundColor
+        {
+            get => _BackgroundColor;
+            set => _BackgroundColor = value;
+        }
+
+        public override ConsoleColor ForegroundColor
+        {
+            get => _ForegroundColor;
+            set => _ForegroundColor = value;
+        }
+
+        public override bool FullScreen
+        {
+            get => _FullScreen;
+            set => _FullScreen = value;
+        }
+
+        public int GetColumns()
+        {
+            //получить кол-во колонок окна консоли
+            return Console.WindowWidth;
+        }
+
+        public int GetRows()
+        {
+            //получить кол-во строк окна консоли
+            return Console.WindowHeight;
+        }
+
+        public void SetBackgroudColor()
+        {
+            Console.BackgroundColor = BackgroundColor;
+        }
+
+        public void SetForegroundColor()
+        {
+            Console.ForegroundColor = ForegroundColor;
+        }
+
+        public void SetFullscreen(bool fullscreen)
+        {
+            //
+        }
+
+        public void SetTitle()
+        {
+            Console.Title = Title;
+        }
+
         public static void WriteAt(string s, int x, int y)
         {
             try
@@ -27,13 +129,11 @@ namespace FileManager
             // Clear the screen, then save the top and left coordinates.
             Console.Clear();
             Console.WriteLine();
-            origRow = Console.CursorTop;
-            origCol = Console.CursorLeft;
 
             //Console.WriteLine(Console.WindowWidth);
             Console.SetCursorPosition(0, 0);
-            int windowWidth = Console.WindowWidth;
-            int windowHeight = Console.WindowHeight;            
+            int windowWidth = Columns;//Console.WindowWidth;
+            int windowHeight = Rows;//Console.WindowHeight;            
             // Draw the left side of a 5x5 rectangle, from top to bottom.
             //WriteAt("+", 0, 0);
             /*for(int i = 1; i < windowHeight; i++)
@@ -76,17 +176,22 @@ namespace FileManager
             }
 
             //разделить экран пополам
-            Console.SetCursorPosition(windowWidth / 2, 0);
+            /*Console.SetCursorPosition(windowWidth / 2, 0);
             for(int i = 1; i < windowHeight - 3; i++)
             {
                 WriteAt("|", windowWidth / 2, i);
+            }*/
+            //Console.SetCursorPosition(windowWidth / 2, 0);
+            for(int i = 1; i < windowHeight - 1; i++)
+            {
+                WriteAt("|", windowWidth / 2, i);
             }
-
+            /*
             //нижняя горизонтальная граница для командной строки
             for(int i = 1; i < windowWidth - 1; i++)
             {
                 WriteAt("-", i, windowHeight - 3);
-            }
+            }*/
         }
 
         public void Show(string part, Drive drive)

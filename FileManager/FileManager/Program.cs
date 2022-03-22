@@ -9,11 +9,14 @@ cSystem.ScanPath("D:\\");
 //cSystem.ScanPath("C:\\FOXPRO2\\M10870_NSI\\M10870.DBF");
 
 //cSystem.ScanPath("/home/lenovo/Документы/vscode/homeWork2/homeWork2.sln");
-var window = new Window();
+var window = new MainWindow("MainWindow", "FileManager | v0.1", ConsoleColor.DarkBlue, ConsoleColor.White, false);
+var command = new CommandArea("CommandArea", 0, window.Rows - 3, 3, window.Columns, window);
+//var left = new EmbeddedWindow("LeftWindow", "LEFT", 1, 1, window.Columns / )
 window.Show();
-window.Show("L", fileSystem.ChildComputers[0].ChildDrives[0]);
-window.Show("R", fileSystem.ChildComputers[0].ChildDrives[1]);
-window.Command();
+command.Show();
+//window.Show("L", fileSystem.ChildComputers[0].ChildDrives[0]);
+//window.Show("R", fileSystem.ChildComputers[0].ChildDrives[1]);
+//window.Command();
 Console.ReadKey();
 int hh = 0;
 //drives
