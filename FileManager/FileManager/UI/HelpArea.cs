@@ -2,10 +2,10 @@ using System;
 using System.IO;
 namespace FileManager
 {
-    public class CommandArea : WindowArea
+    public class HelpArea : WindowArea
     {
         //коммандная строка внизу экрана
-        public CommandArea(
+        public HelpArea(
             string Name,  
             int Left,
             int Top,
@@ -20,6 +20,7 @@ namespace FileManager
             _Height = Height;
             _Width = Width;
             _Parent = Parent;
+            _Keys = new List<Commands>();
         }
 
         private string _Name;
@@ -28,6 +29,13 @@ namespace FileManager
         private int _Height;
         private int _Width;
         private MainWindow _Parent;
+        private List<Commands> _Keys;
+
+        public List<Commands> Keys
+        {
+            get => _Keys;
+            set => _Keys = value;
+        }
 
         public override string Name
         {
@@ -56,7 +64,7 @@ namespace FileManager
         {
             get => _Width;
             set => _Width = value;
-        }
+        }        
     
         public static void WriteAt(string s, int x, int y)
         {
@@ -91,7 +99,12 @@ namespace FileManager
 
             //текст
             Console.SetCursorPosition(Left + 1, Top + 1);
-            Console.Write("Команда: ");
+            for(int i = Left + 1, j = 0; i < Width - 1 && j < Keys.Count; i++, j++)
+            {                
+                Console.Write($"{ j + 1 } { Keys[j] } ");
+                var coordinates = Console.GetCursorPosition();
+                Console.SetCursorPosition(coordinates.Left + 1, coordinates.Top);
+            }
         }
     }
 }
